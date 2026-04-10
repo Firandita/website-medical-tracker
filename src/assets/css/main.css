@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   GOOGLE FONTS — sudah di-load via index.html
+   ================================================================ */
+
+/* ================================================================
+   BASE OVERRIDES
+   ================================================================ */
+@layer base {
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #f1f5f9;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar        { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track  { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb  { background: #cbd5e1; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+}
+
+/* ================================================================
+   COMPONENT LAYER — reusable class combos
+   ================================================================ */
+@layer components {
+
+  /* ---- Sidebar ---- */
+  .sidebar {
+    background: linear-gradient(180deg, #0f172a 0%, #0d1b2a 100%);
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200
+           text-slate-300 text-sm;
+    border-left: 3px solid transparent;
+  }
+  .sidebar-item:hover {
+    @apply bg-teal-500/10 text-teal-300;
+    border-left-color: #14b8a6;
+  }
+  .sidebar-item.active {
+    @apply bg-teal-500/15 text-teal-300 font-medium;
+    border-left-color: #14b8a6;
+  }
+  .sidebar-item.active .sidebar-icon {
+    @apply text-brand-400;
+  }
+  .sidebar-icon {
+    @apply w-5 h-5 text-slate-400 flex-shrink-0;
+  }
+
+  /* ---- Cards ---- */
+  .card-glass {
+    @apply bg-white/85 backdrop-blur-xl;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .stat-card {
+    @apply transition-all duration-200;
+  }
+  .stat-card:hover {
+    @apply -translate-y-0.5 shadow-card-hover;
+  }
+
+  /* ---- Gradient utilities ---- */
+  .gradient-teal   { background: linear-gradient(135deg, #0d9488, #14b8a6); }
+  .gradient-blue   { background: linear-gradient(135deg, #1e40af, #3b82f6); }
+  .gradient-amber  { background: linear-gradient(135deg, #b45309, #f59e0b); }
+  .gradient-red    { background: linear-gradient(135deg, #b91c1c, #ef4444); }
+  .gradient-purple { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+
+  /* ---- Alert variants ---- */
+  .alert-critical { @apply border-l-4 border-red-500   bg-red-50; }
+  .alert-warning  { @apply border-l-4 border-amber-500 bg-amber-50; }
+  .alert-info     { @apply border-l-4 border-blue-500  bg-blue-50; }
+
+  /* ---- Badge ---- */
+  .badge-critical { @apply bg-red-100   text-red-600   text-xs px-2 py-0.5 rounded-full font-medium; }
+  .badge-warning  { @apply bg-amber-100 text-amber-600 text-xs px-2 py-0.5 rounded-full font-medium; }
+  .badge-ok       { @apply bg-emerald-100 text-emerald-600 text-xs px-2 py-0.5 rounded-full font-medium; }
+  .badge-info     { @apply bg-blue-100  text-blue-600  text-xs px-2 py-0.5 rounded-full font-medium; }
+  .badge-expired  { @apply bg-slate-100 text-slate-500 text-xs px-2 py-0.5 rounded-full font-medium; }
+
+  /* ---- Buttons ---- */
+  .btn-primary {
+    @apply gradient-teal text-white px-4 py-2 rounded-xl text-sm font-medium shadow-sm
+           hover:opacity-90 transition-all duration-150 flex items-center gap-2;
+  }
+  .btn-secondary {
+    @apply bg-slate-100 hover:bg-slate-200 text-slate-600 px-4 py-2 rounded-xl text-sm
+           font-medium transition-all duration-150 flex items-center gap-2;
+  }
+  .btn-outline {
+    @apply border border-slate-200 hover:bg-slate-50 text-slate-600 px-4 py-2 rounded-xl
+           text-sm font-medium transition-all duration-150 flex items-center gap-2;
+  }
+
+  /* ---- Form inputs ---- */
+  .input-base {
+    @apply w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-700
+           bg-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent
+           transition placeholder-slate-400;
+  }
+  .select-base {
+    @apply w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-600
+           bg-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition;
+  }
+
+  /* ---- Table ---- */
+  .table-header { @apply text-left px-4 py-3 text-xs text-slate-500 font-semibold bg-slate-50; }
+  .table-cell   { @apply px-4 py-3 text-sm text-slate-700; }
+  .table-row    { @apply hover:bg-slate-50 transition-colors duration-100 border-b border-slate-50; }
+
+  /* ---- AI chat bubbles ---- */
+  .chat-ai-bubble {
+    @apply bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-none p-3;
+    animation: fadeUp 0.3s ease;
+  }
+  .chat-user-bubble {
+    @apply bg-brand-500 text-white rounded-2xl rounded-tr-none px-3 py-2;
+    animation: fadeUp 0.3s ease;
+  }
+
+  /* ---- Map container ---- */
+  .map-container {
+    @apply rounded-xl overflow-hidden;
+    z-index: 0;
+  }
+
+  /* ---- Modal overlay ---- */
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+}
+
+/* ================================================================
+   LEAFLET OVERRIDE — prevent z-index conflicts dengan Tailwind
+   ================================================================ */
+.leaflet-pane         { z-index: 4 !important; }
+.leaflet-tile-pane    { z-index: 2 !important; }
+.leaflet-overlay-pane { z-index: 4 !important; }
+.leaflet-shadow-pane  { z-index: 5 !important; }
+.leaflet-marker-pane  { z-index: 6 !important; }
+.leaflet-tooltip-pane { z-index: 7 !important; }
+.leaflet-popup-pane   { z-index: 8 !important; }
+.leaflet-control      { z-index: 8 !important; }
+.leaflet-top, .leaflet-bottom { z-index: 8 !important; }
+
+/* ================================================================
+   TYPING ANIMATION untuk AI chat
+   ================================================================ */
+.typing-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #14b8a6;
+  animation: bounceDot 1.2s infinite;
+  display: inline-block;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounceDot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40%           { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ================================================================
+   BADGE PULSE — untuk status kritis
+   ================================================================ */
+.badge-pulse {
+  animation: pulseBadge 2s infinite;
+}
+@keyframes pulseBadge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+}
+
+/* ================================================================
+   PAGE TRANSITION
+   ================================================================ */
+.page-enter-active { animation: slideIn 0.3s ease; }
+.page-leave-active { animation: slideIn 0.2s ease reverse; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
